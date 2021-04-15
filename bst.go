@@ -79,17 +79,19 @@ print a node like this
    1   2    6   12
 */
 func (n *Node) Print() {
-	h := n.GetHeight()
-	fmt.Println("height: ", h)
-	numOfLeaves := int(math.Pow(2, float64(h-1)))
-	w := numOfLeaves * (2 + 1 + 2) // left margin + num + right margin
+	height := n.GetHeight()
+	fmt.Println("height: ", height)
+	numOfLeaves := int(math.Pow(2, float64(height-1)))
+	w := numOfLeaves * (2 + 4 + 2) // left margin + num + right margin
 	fmt.Println("width: ", w)
+	fmt.Println("numOfLeaves ", numOfLeaves)
 
-	for i := 0; i < h; i++ {
+	for i := 0; i < height; i++ {
 		line := ""
 		iNumOfLeaves := int(math.Pow(2, float64(i)))
 		iNumOfSpaces := iNumOfLeaves + 1
-		spaceWidth := int((w - iNumOfLeaves) / iNumOfSpaces)
+		spaceWidth := int((w - 4*iNumOfLeaves) / iNumOfSpaces)
+		// fmt.Printf("h %v, spaceWidth: %v", height, spaceWidth)
 		if i == 0 {
 			spaceWidth = int(w/2) + 1
 		}
@@ -100,7 +102,10 @@ func (n *Node) Print() {
 			if number != 0 {
 				numberStr = strconv.Itoa(number)
 			} else {
-				numberStr = " "
+				numberStr = "n"
+			}
+			if len(numberStr) < 4 {
+				numberStr = strings.Repeat(" ", 4-len(numberStr)) + numberStr
 			}
 			line = line + strings.Repeat(" ", spaceWidth) + numberStr + strings.Repeat(" ", spaceWidth)
 		}
