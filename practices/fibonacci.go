@@ -12,6 +12,9 @@ package dsalgo
 
 type IntInIntOut func(n int) int
 
+// Dynamic Programming
+// this function caches the result of the fib function to be efficient
+// this returns a function to use to calculate fibonacci series
 func memoize(fn IntInIntOut) IntInIntOut {
 	cache := make(map[int]int)
 	return func(n int) int {
